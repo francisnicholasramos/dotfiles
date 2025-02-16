@@ -8,6 +8,8 @@ vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set('n', '<leader>w', ':w<CR>') -- save
 vim.keymap.set('n', '<leader>q', ':q<CR>') -- quit 
 vim.keymap.set('n', '<leader>t', ':terminal<CR>') -- terminal/shell
+vim.keymap.set('n', '<leader>vv', ':Vex<CR>') -- vertical tab
+vim.keymap.set('n', '<leader>ss', ':Sex<CR>') -- horizontal tab
 
 -- Indentation
 vim.opt.tabstop = 4 -- no. of spaces a tab counts for
