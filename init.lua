@@ -10,6 +10,8 @@ vim.keymap.set('n', '<leader>q', ':q<CR>') -- quit
 vim.keymap.set('n', '<leader>t', ':terminal<CR>') -- terminal/shell
 vim.keymap.set('n', '<leader>vv', ':Vex<CR>') -- vertical tab
 vim.keymap.set('n', '<leader>ss', ':Sex<CR>') -- horizontal tab
+vim.keymap.set('n', 'cf', ':e C:/Users/niko/AppData/Local/nvim/init.lua<cr>') -- init.lua
+vim.keymap.set('n', ';', ':', { noremap = true }) -- command mode
 
 -- Indentation
 vim.opt.tabstop = 4 -- no. of spaces a tab counts for
