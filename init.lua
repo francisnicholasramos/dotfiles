@@ -1,18 +1,18 @@
 print("Hello, niko!")
+ 
 vim.opt.number = true 
 
 -- Key Maps
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set('n', '<leader>w', ':w<CR>') -- save
 vim.keymap.set('n', '<leader>q', ':q<CR>') -- quit 
 vim.keymap.set('n', '<leader>t', ':terminal<CR>') -- terminal/shell
-vim.keymap.set('n', '<leader>vv', ':Vex<CR>') -- vertical tab
-vim.keymap.set('n', '<leader>ss', ':Sex<CR>') -- horizontal tab
+vim.keymap.set('n', '<leader>vv', ':Vex<cr>') -- vertical tab
+vim.keymap.set('n', '<leader>ss', ':Sex<cr>') -- horizontal tab
 vim.keymap.set('n', 'cf', ':e C:/Users/niko/AppData/Local/nvim/init.lua<cr>') -- init.lua
 vim.keymap.set('n', ';', ':', { noremap = true }) -- command mode
-vim.keymap.set('n', '<leader>[', ':bp<cr>') -- previous buffer
-vim.keymap.set('n', '<leader>]', ':bn<cr>') -- next buffer
+vim.keymap.set('n', '<leader>[', ':bp<cr>') -- previous tab
+vim.keymap.set('n', '<leader>]', ':bn<cr>') -- next tab
 vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
 
 -- Indentation
@@ -23,51 +23,157 @@ vim.o.shiftwidth = 4      -- Number of spaces for indentation
 vim.o.tabstop = 4         -- Number of spaces for a tab
 vim.o.softtabstop = 4     -- Ensures backspace removes 4 spaces
 
+
+-- Plug
+vim.cmd [[
+call plug#begin('~/.vim/plugged')
+
+" Telescope
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+Plug 'nvim-lua/plenary.nvim' 
+
+" NvimTree
+Plug 'nvim-tree/nvim-tree.lua'
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+
+Plug 'windwp/nvim-ts-autotag' " Auto complete tag for html
+Plug 'windwp/nvim-autopairs' " Auto-Complete Brackets, Quotes, and Parentheses 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " nvim-treesitter
+
+" Mason
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
+call plug#end()
+]]
+
+-- Mason setup
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "lua_ls", "pyright", "html", "cssls",
+        "jsonls", "bashls", "rust_analyzer", "gopls"
+    }
+})
+
+-- treesitter
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { "html", "css", "javascript", "lua", "json", "python", "php", "java" },
+  highlight = { enable = false },
+  indent = { enable = true, disable = {"html"} },
+  autotag = { enable = true },
+}
+
+require('nvim-ts-autotag').setup() -- auto complete tag
+require("nvim-autopairs").setup({ -- auto complete pair
+  check_ts = true,
+})
+
+-- Setup LSPConfig
+local lspconfig = require("lspconfig")
+
+vim.diagnostic.config({
+  signs = false,
+})
+-- Function to attach LSP
+local on_attach = function(client, bufnr)
+    local opts = { noremap=true, silent=true, buffer=bufnr }
+    -- Keybindings for LSP
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+end
+
+-- Setup LSP server
+local servers = { "ts_ls", "lua_ls", "pyright", "html", "cssls", "jsonls", "bashls", "rust_analyzer", "gopls" }
+for _, server in ipairs(servers) do
+    lspconfig[server].setup({
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        }
+    })
+end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+
+-- LSP config for HTML/CSS
+lspconfig.html.setup({
+    on_attach = on_attach,
+    capabilities = capabilities
+})
+
+lspconfig.cssls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities
+})
+
+
+-- Autocompletion setup
+local cmp = require'cmp'
+cmp.setup({
+    mapping = {
+        ['<Down>'] = cmp.mapping.select_next_item(),  -- Move down
+        ['<Up>'] = cmp.mapping.select_prev_item(), -- Move up
+        ['<C-Space>'] = cmp.mapping.complete(),  -- Manually trigger completion
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+    }
+})
+
+
+-- NvimTree config
+require("nvim-tree").setup({
+  sync_root_with_cwd = true,  -- Automatically change root when cd changes
+  respect_buf_cwd = true,     -- Follow the buffer's directory
+  update_focused_file = {
+    enable = true,
+    update_root = true,       -- Update NvimTree root when opening a new file
+  },
+})
+
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
+
+-- Auto-refresh NvimTree when changing directories
+vim.api.nvim_create_autocmd("DirChanged", {
+  pattern = "*",
+  callback = function()
+    require("nvim-tree.api").tree.reload()
+  end,
+})
+
+-- NvimTree config
+require("nvim-tree").setup({
+  sync_root_with_cwd = true,  -- Automatically change root when `cd` changes
+  respect_buf_cwd = true,     -- Follow the buffer's directory
+  update_focused_file = {
+    enable = true,
+    update_root = true,       -- Update NvimTree root when opening a new file
+  },
+})
+
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
+
+-- Auto-refresh NvimTree when changing directories
+vim.api.nvim_create_autocmd("DirChanged", {
+  pattern = "*",
+  callback = function()
+    require("nvim-tree.api").tree.reload()
+  end,
+})
+
+-- Telescope config
+require('telescope').setup()
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
+
 -- Default theme
 vim.cmd.colorscheme("habamax")
-
-
--- Custom theme (one dark)
--- vim.opt.termguicolors = true
--- vim.cmd([[
---     " General 
---     highlight Normal guibg=#1E222A guifg=#ABB2BF
---     highlight LineNr guifg=#5C6370
---     highlight Comment guifg=#5C6370
---     highlight Keyword guifg=#C678DD
---     highlight Identifier guifg=#E06C75
---     highlight Function guifg=#61AFEF
---     highlight String guifg=#98C379
---     highlight Type guifg=#E5C07B
---     highlight Constant guifg=#D19A66
---     highlight Statement guifg=#56B6C2
---     highlight Visual guibg=#3E4452
---     highlight CursorLine guibg=#2C323C
---     highlight StatusLine guibg=#282C34 guifg=#ABB2BF
---     highlight VertSplit guibg=#282C34 guifg=#3E4452
-    
---     " Html
---     highlight htmlTag guifg=#56B6C2 
---     highlight htmlTagName guifg=#E06C75
---     highlight htmlArg guifg=#D19A66 
---     highlight htmlEndTag guifg=#E06C75
-
---     " Imports 
---     highlight pythonImport guifg=#56B6C2
---     highlight javascriptImport guifg=#56B6C2  
---     highlight typescriptImport guifg=#56B6C2 
---     highlight goImport guifg=#56B6C2
---     highlight rustImport guifg=#56B6C2 
-
---     " PHP Syntax Highlighting Fixes
---     highlight phpVarSelector guifg=#E06C75  
---     highlight phpKeyword guifg=#C678DD       
---     highlight phpOperator guifg=#56B6C2     
---     highlight phpParent guifg=#ABB2BF        
---     highlight phpFunction guifg=#61AFEF      
---     highlight phpStringDouble guifg=#98C379  
---     highlight phpStringSingle guifg=#98C379  
---     highlight phpHereDoc guifg=#98C379       
---     highlight phpNumber guifg=#D19A66        
---     highlight phpTag guifg=#E06C75           
--- ]])
