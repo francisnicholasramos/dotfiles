@@ -1,5 +1,4 @@
 print("Hello, niko!")
- 
 vim.opt.number = true 
 
 -- Key Maps
@@ -12,20 +11,23 @@ vim.keymap.set('n', '<leader>vv', ':Vex<CR>') -- vertical tab
 vim.keymap.set('n', '<leader>ss', ':Sex<CR>') -- horizontal tab
 vim.keymap.set('n', 'cf', ':e C:/Users/niko/AppData/Local/nvim/init.lua<cr>') -- init.lua
 vim.keymap.set('n', ';', ':', { noremap = true }) -- command mode
+vim.keymap.set('n', '<leader>[', ':bp<cr>') -- previous buffer
+vim.keymap.set('n', '<leader>]', ':bn<cr>') -- next buffer
+vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
 
 -- Indentation
-vim.opt.tabstop = 4 -- no. of spaces a tab counts for
-vim.opt.shiftwidth = 4 -- no. of spaces for indentation
-vim.opt.expandtab = true -- convert tabs to spaces
+vim.o.autoindent = true   -- Enable auto indentation
+vim.o.smartindent = true  -- Enable smart indentation
+vim.o.expandtab = true    -- Convert tabs to spaces
+vim.o.shiftwidth = 4      -- Number of spaces for indentation
+vim.o.tabstop = 4         -- Number of spaces for a tab
+vim.o.softtabstop = 4     -- Ensures backspace removes 4 spaces
 
 -- Default theme
 vim.cmd.colorscheme("habamax")
 
--- One Dark 
-vim.cmd("syntax enable")
-vim.cmd("syntax on")
 
--- Theme
+-- Custom theme (one dark)
 -- vim.opt.termguicolors = true
 -- vim.cmd([[
 --     " General 
