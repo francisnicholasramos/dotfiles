@@ -1,6 +1,10 @@
-print("Hello, niko!")
+require("dashboard")
+
+-- print("Hello, niko!")
  
 vim.opt.number = true 
+vim.opt.guicursor = "n-v-c:block-blinkwait700-blinkoff400-blinkon250" -- blinking cursor 
+vim.opt.guicursor = "n-v-c:block,i-ci:ver25,r-cr:hor20,o:hor50" -- thick cursor when insert mode
 
 -- Key Maps
 vim.g.mapleader = " "
@@ -11,9 +15,13 @@ vim.keymap.set('n', '<leader>vv', ':Vex<cr>') -- vertical tab
 vim.keymap.set('n', '<leader>ss', ':Sex<cr>') -- horizontal tab
 vim.keymap.set('n', 'cf', ':e C:/Users/niko/AppData/Local/nvim/init.lua<cr>') -- init.lua
 vim.keymap.set('n', ';', ':', { noremap = true }) -- command mode
-vim.keymap.set('n', '<leader>[', ':bp<cr>') -- previous tab
-vim.keymap.set('n', '<leader>]', ':bn<cr>') -- next tab
+vim.keymap.set('n', '[', ':bp<cr>') -- previous tab
+vim.keymap.set('n', ']', ':bn<cr>') -- next tab
 vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
+vim.keymap.set('n', '=p', '"+gP', { noremap = true, silent = true}) -- paste something you copy outside the vim
+
+
+vim.keymap.set('n', '<leader>ff', ':Files<cr>', { noremap = true, silent = true })
 
 -- Indentation
 vim.o.autoindent = true   -- Enable auto indentation
@@ -29,8 +37,8 @@ vim.cmd [[
 call plug#begin('~/.vim/plugged')
 
 " Telescope
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
-Plug 'nvim-lua/plenary.nvim' 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 " NvimTree
 Plug 'nvim-tree/nvim-tree.lua'
@@ -56,8 +64,7 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls", "pyright", "html", "cssls",
-        "jsonls", "bashls", "rust_analyzer", "gopls"
-    }
+        "jsonls" }
 })
 
 -- treesitter
@@ -79,6 +86,8 @@ local lspconfig = require("lspconfig")
 vim.diagnostic.config({
   signs = false,
 })
+
+
 -- Function to attach LSP
 local on_attach = function(client, bufnr)
     local opts = { noremap=true, silent=true, buffer=bufnr }
@@ -90,7 +99,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Setup LSP server
-local servers = { "ts_ls", "lua_ls", "pyright", "html", "cssls", "jsonls", "bashls", "rust_analyzer", "gopls" }
+local servers = { "ts_ls", "lua_ls", "pyright", "html", "cssls", "jsonls" }
 for _, server in ipairs(servers) do
     lspconfig[server].setup({
         on_attach = on_attach,
@@ -115,6 +124,17 @@ lspconfig.cssls.setup({
     capabilities = capabilities
 })
 
+-- Emmet
+lspconfig.emmet_ls.setup({
+    filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte" },
+    init_options = {
+        html = {
+            options = {
+                ["bem.enabled"] = true, -- Enable BEM support
+            }
+        }
+    }
+})
 
 -- Autocompletion setup
 local cmp = require'cmp'
@@ -171,9 +191,9 @@ vim.api.nvim_create_autocmd("DirChanged", {
   end,
 })
 
--- Telescope config
-require('telescope').setup()
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
+-- Telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 
--- Default theme
+-- -- Default theme
 vim.cmd.colorscheme("habamax")
