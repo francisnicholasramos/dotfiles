@@ -25,6 +25,7 @@ vim.opt.splitbelow = true -- configure how new splits should be opened
 
 vim.keymap.set('n', '<leader>ff', ':Files<cr>', { noremap = true, silent = true })
 
+
 -- Indentation
 vim.o.autoindent = true   -- Enable auto indentation
 vim.o.smartindent = true  -- Enable smart indentation
@@ -80,7 +81,7 @@ require("mason-lspconfig").setup({
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "html", "css", "javascript", "lua", "json", "python", "php", "java" },
   highlight = { enable = false },
-  indent = { enable = true, disable = {"html", "tsx"} },
+  indent = { enable = true, disable = {"html", "tsx", "jsx"} },
   autotag = {
         enable = true,
         filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'jsx', 'tsx' } 
@@ -111,6 +112,8 @@ require("luasnip.loaders.from_vscode").lazy_load()
 vim.keymap.set({"i", "s"}, "<Tab>", function()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+    else
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", false)
     end
 end, { silent = true })
 
@@ -241,15 +244,6 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
-
--- Auto-refresh NvimTree when changing directories
-vim.api.nvim_create_autocmd("DirChanged", {
-  pattern = "*",
-  callback = function()
-    require("nvim-tree.api").tree.reload()
-  end,
-})
 
 -- Telescope
 local builtin = require('telescope.builtin')
