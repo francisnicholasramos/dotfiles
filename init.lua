@@ -1,10 +1,9 @@
-require("dashboard")
+print("Hello, niko!")
 
--- print("Hello, niko!")
- 
-vim.opt.number = true 
+vim.opt.number = true
 vim.opt.guicursor = "n-v-c:block-blinkwait700-blinkoff400-blinkon250" -- blinking cursor 
 vim.opt.guicursor = "n-v-c:block,i-ci:ver25,r-cr:hor20,o:hor50" -- thick cursor when insert mode
+vim.opt.cursorline = true -- show which line your cursor is on
 
 -- Key Maps
 vim.g.mapleader = " "
@@ -19,6 +18,9 @@ vim.keymap.set('n', '[', ':bp<cr>') -- previous tab
 vim.keymap.set('n', ']', ':bn<cr>') -- next tab
 vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
 vim.keymap.set('n', '=p', '"+gP', { noremap = true, silent = true}) -- paste something you copy outside the vim
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlights on search when pressing
+vim.opt.splitright = true -- configure how new splits should be opened 
+vim.opt.splitbelow = true -- configure how new splits should be opened 
 
 
 vim.keymap.set('n', '<leader>ff', ':Files<cr>', { noremap = true, silent = true })
@@ -27,9 +29,8 @@ vim.keymap.set('n', '<leader>ff', ':Files<cr>', { noremap = true, silent = true 
 vim.o.autoindent = true   -- Enable auto indentation
 vim.o.smartindent = true  -- Enable smart indentation
 vim.o.expandtab = true    -- Convert tabs to spaces
-vim.o.shiftwidth = 4      -- Number of spaces for indentation
-vim.o.tabstop = 4         -- Number of spaces for a tab
-vim.o.softtabstop = 4     -- Ensures backspace removes 4 spaces
+vim.o.shiftwidth = 2      -- Number of spaces for indentation
+vim.o.tabstop = 2         -- Number of spaces for a tab
 
 
 -- Plug
@@ -48,13 +49,21 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 
-Plug 'windwp/nvim-ts-autotag' " Auto complete tag for html
+Plug 'windwp/nvim-ts-autotag' " Auto complete tag
 Plug 'windwp/nvim-autopairs' " Auto-Complete Brackets, Quotes, and Parentheses 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " nvim-treesitter
 
 " Mason
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+
+" LuaSnip for rafce emmet
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
+
+" Prettier
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'MunifTanjim/prettier.nvim'
 
 call plug#end()
 ]]
@@ -71,14 +80,47 @@ require("mason-lspconfig").setup({
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "html", "css", "javascript", "lua", "json", "python", "php", "java" },
   highlight = { enable = false },
-  indent = { enable = true, disable = {"html"} },
-  autotag = { enable = true },
+  indent = { enable = true, disable = {"html", "tsx"} },
+  autotag = {
+        enable = true,
+        filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'jsx', 'tsx' } 
+    },
+
 }
 
 require('nvim-ts-autotag').setup() -- auto complete tag
 require("nvim-autopairs").setup({ -- auto complete pair
   check_ts = true,
 })
+
+-- Prettier
+require("prettier").setup({
+    bin = 'prettier', -- Path to Prettier
+    filetypes = {
+        "javascript", "typescript", "javascriptreact", "typescriptreact",
+        "json", "html", "css", "scss", "markdown"
+    }
+})
+
+
+-- LuaSnip emmet for jsx/tsx
+local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
+
+-- Keybind to expand snippets
+vim.keymap.set({"i", "s"}, "<Tab>", function()
+    if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+    end
+end, { silent = true })
+
+-- Navigate snippets with Shift+Tab
+vim.keymap.set({"i", "s"}, "<S-Tab>", function()
+    if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+    end
+end, { silent = true })
+
 
 -- Setup LSPConfig
 local lspconfig = require("lspconfig")
@@ -99,21 +141,23 @@ local on_attach = function(client, bufnr)
 end
 
 -- Setup LSP server
-local servers = { "ts_ls", "lua_ls", "pyright", "html", "cssls", "jsonls" }
+local servers = { "ts_ls", "tailwindcss", "eslint", "lua_ls", "pyright", "html", "cssls", "jsonls" }
 for _, server in ipairs(servers) do
     lspconfig[server].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         }
     })
 end
 
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 
--- LSP config for HTML/CSS
+-- LSP config for html, css, typescript, tailwindcss, eslint
 lspconfig.html.setup({
     on_attach = on_attach,
     capabilities = capabilities
@@ -123,6 +167,22 @@ lspconfig.cssls.setup({
     on_attach = on_attach,
     capabilities = capabilities
 })
+
+lspconfig.ts_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+lspconfig.tailwindcss.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+lspconfig.eslint.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
 
 -- Emmet
 lspconfig.emmet_ls.setup({
@@ -193,7 +253,9 @@ vim.api.nvim_create_autocmd("DirChanged", {
 
 -- Telescope
 local builtin = require('telescope.builtin')
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" }) -- find existing buffers
 
 -- -- Default theme
 vim.cmd.colorscheme("habamax")
