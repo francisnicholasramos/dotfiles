@@ -1,5 +1,7 @@
 print("Hello, niko!")
 
+vim.cmd("cd D:/")
+
 vim.opt.number = true
 vim.opt.guicursor = "n-v-c:block-blinkwait700-blinkoff400-blinkon250" -- blinking cursor 
 vim.opt.guicursor = "n-v-c:block,i-ci:ver25,r-cr:hor20,o:hor50" -- thick cursor when insert mode
@@ -33,7 +35,6 @@ vim.o.expandtab = true    -- Convert tabs to spaces
 vim.o.shiftwidth = 2      -- Number of spaces for indentation
 vim.o.tabstop = 2         -- Number of spaces for a tab
 
-
 -- Plug
 vim.cmd [[
 call plug#begin('~/.vim/plugged')
@@ -66,6 +67,9 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'MunifTanjim/prettier.nvim'
 
+" Tomorrow Night theme
+Plug 'deparr/tairiki.nvim'
+
 call plug#end()
 ]]
 
@@ -73,18 +77,18 @@ call plug#end()
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
-        "lua_ls", "pyright", "html", "cssls",
+        "lua_ls", "pyright", "html", "cssls", "ts_ls",
         "jsonls" }
 })
 
 -- treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "html", "css", "javascript", "lua", "json", "python", "php", "java" },
+  ensure_installed = { "html", "css", "javascript", "tsx", "lua", "json", "python", "php", "java" },
   highlight = { enable = false },
-  indent = { enable = true, disable = {"html", "tsx", "jsx"} },
+  indent = { enable = true, disable = {"html"} },
   autotag = {
         enable = true,
-        filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'jsx', 'tsx' } 
+        filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'jsx', 'tsx' }
     },
 
 }
@@ -251,5 +255,12 @@ vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" }) -- find existing buffers
 
--- -- Default theme
-vim.cmd.colorscheme("habamax")
+-- Default theme
+-- vim.cmd.colorscheme("habamax")
+
+-- Tomorrow night theme
+require('tairiki').setup({
+  palette = "dimmed",
+  default_dark  = "dimmed",
+})
+vim.cmd("colorscheme tairiki")
