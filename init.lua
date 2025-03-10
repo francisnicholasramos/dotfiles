@@ -17,6 +17,7 @@ vim.keymap.set('n', ']', ':bn<cr>') -- next tab
 vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
 vim.keymap.set('n', '=p', '"+gP', { noremap = true, silent = true}) -- paste something you copy outside the vim
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlights on search when pressing
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- exit TERMINAL mode
 vim.opt.splitright = true -- configure how new splits should be opened 
 vim.opt.splitbelow = true -- configure how new splits should be opened 
 
