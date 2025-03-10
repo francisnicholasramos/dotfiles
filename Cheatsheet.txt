@@ -1,0 +1,45 @@
+Arrow keys 
+  K
+H   L
+  J
+  
+
+v - select
+p - paste below the line
+P paste above the line
+y - yank (copy)
+u - undo 
+d - delete 
+i/a - insert 
++p = to paste something you copy outside the vim
+ctrl + v - select line or multiple lines
+gc - comment a line
+
+o - insert new line BELOW and go into insert mode
+O - insert new line ABOVE and go into insert mode
+
+Ctrl + W - window mode
+When it's window mode you can use arrow keys in order to switch from different tabs 
+
+Ctrl + W + S - split tab 
+Ctrl + W + V - vertical tab
+Ctrl + W O - close all open tabs and left on current buffer that you are in
+Ctrl + 
+
+/ - search for string is just like ctrl + f in vscode
+so - source 
+Ex - explorer 
+reg - history of actions
+Vex - Vertical Explorer
+Sex - Split/horizontal Explorer
+!mkdir - creating folder
+a - create file inside the NvimToggleTree
+d - delete file inside the NvimToggleTree
+r/e - rename file inside the NvimToggleTree
+live-server --open=file.html - open specific html file
+noh - remove text that's been highlighted
+shift + ; + s + /textYouWantToChange/newText - for changing multiple lines (you select multiple lines here)
+shift + i + type anything + Esc - will add or replace lines (you select multiple lines here)
+shift + i - adding text for blank lines (you select multiple lines here)
+
+
