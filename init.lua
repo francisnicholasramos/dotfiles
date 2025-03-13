@@ -17,7 +17,8 @@ vim.keymap.set('n', ']', ':bn<cr>') -- next tab
 vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
 vim.keymap.set('n', '=p', '"+gP', { noremap = true, silent = true}) -- paste something you copy outside the vim
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlights on search when pressing
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- exit TERMINAL mode
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent =  true }) -- exit terminal mode
+vim.keymap.set('n', '<leader>bd', '<C-\\><C-n>:bd!<CR>', { noremap = true, silent = true }) -- kill terminal
 vim.opt.splitright = true -- configure how new splits should be opened 
 vim.opt.splitbelow = true -- configure how new splits should be opened 
 
@@ -67,20 +68,25 @@ Plug 'MunifTanjim/prettier.nvim'
 " Tomorrow Night theme
 Plug 'deparr/tairiki.nvim'
 
+" Airline
+Plug 'vim-airline/vim-airline'  
+Plug 'vim-airline/vim-airline-themes'  
+
 call plug#end()
 ]]
+
 
 -- Mason setup
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
-        "lua_ls", "pyright", "html", "cssls", "ts_ls",
+        "lua_ls", "html", "cssls", "ts_ls",
         "jsonls" }
 })
 
 -- treesitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "html", "css", "javascript", "tsx", "lua", "json", "python", "php", "java" },
+  ensure_installed = { "html", "css", "javascript", "tsx", "lua", "json"},
   highlight = { enable = false },
   indent = { enable = true, disable = {"html"} },
   autotag = {
@@ -262,4 +268,7 @@ require('tairiki').setup({
   default_dark  = "dimmed",
 })
 vim.cmd("colorscheme tairiki")
+vim.g.airline_theme = 'onedark'
+
+
 
