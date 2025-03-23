@@ -1,10 +1,8 @@
-print("Hello, niko!")
+print("Neovim BTW!")
 
 vim.cmd("cd D:/")
 
-vim.opt.number = true
-vim.opt.guicursor = "n-v-c:block-blinkwait700-blinkoff400-blinkon250" -- blinking cursor 
-vim.opt.guicursor = "n-v-c:block,i-ci:ver25,r-cr:hor20,o:hor50" -- thick cursor when insert mode
+vim.opt.number = true -- set line number
 vim.opt.cursorline = true -- show which line your cursor is on
 
 -- Key Maps
@@ -19,14 +17,16 @@ vim.keymap.set('n', ';', ':', { noremap = true }) -- command mode
 vim.keymap.set('n', '[', ':bp<cr>') -- previous tab
 vim.keymap.set('n', ']', ':bn<cr>') -- next tab
 vim.keymap.set('n', '<leader>bd', ':bd<cr>') -- kill/exit current buffer
-vim.keymap.set('n', '=p', '"+gP', { noremap = true, silent = true}) -- paste something you copy outside the vim
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlights on search when pressing
 vim.opt.splitright = true -- configure how new splits should be opened 
 vim.opt.splitbelow = true -- configure how new splits should be opened 
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent =  true }) -- exit terminal mode
+vim.keymap.set('n', '<leader>bd', '<C-\\><C-n>:bd!<CR>', { noremap = true, silent = true }) -- kill terminal
+vim.keymap.set('n', '<leader>ff', ':Files<cr>', { noremap = true, silent = true }) -- find files 
+vim.keymap.set('v', '<leader>y', '"+y') -- copy a line (visual mode) and can be paste outside nvim
 
-
-vim.keymap.set('n', '<leader>ff', ':Files<cr>', { noremap = true, silent = true })
-
+vim.keymap.set('n', '<leader>p', '"+p') -- paste something you copy outside the vim
+vim.keymap.set('n', '=p', '"+gP', { noremap = true, silent = true}) -- paste something you copy outside the vim
 
 -- Indentation
 vim.o.autoindent = true   -- Enable auto indentation
@@ -34,6 +34,28 @@ vim.o.smartindent = true  -- Enable smart indentation
 vim.o.expandtab = true    -- Convert tabs to spaces
 vim.o.shiftwidth = 2      -- Number of spaces for indentation
 vim.o.tabstop = 2         -- Number of spaces for a tab
+vim.cmd [[filetype plugin indent on]]
+
+
+-- Hover an errors
+vim.o.updatetime = 200 -- Reduce delay for CursorHold event
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*",
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      focusable = false,  -- Prevents window from taking focus
+      prefix = "* ",       -- Bullet for readability
+    })
+  end,
+})
+
+vim.cmd [[
+  hi DiagnosticUnderlineError guisp=#E57373 gui=undercurl
+]]
+
+
+
 
 -- Plug
 vim.cmd [[
@@ -45,6 +67,9 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 " NvimTree
 Plug 'nvim-tree/nvim-tree.lua'
+
+" File tree icons
+Plug 'nvim-tree/nvim-web-devicons'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -69,6 +94,16 @@ Plug 'MunifTanjim/prettier.nvim'
 
 " Tomorrow Night theme
 Plug 'deparr/tairiki.nvim'
+
+" Airline
+Plug 'vim-airline/vim-airline'  
+Plug 'vim-airline/vim-airline-themes' 
+
+" Fugitive (git plugin)
+Plug 'tpope/vim-fugitive'
+
+" Gitsigns 
+Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
 ]]
@@ -133,7 +168,10 @@ end, { silent = true })
 local lspconfig = require("lspconfig")
 
 vim.diagnostic.config({
-  signs = false,
+  signs = true,
+  virtual_text = false,
+  underline = true,
+  update_in_insert = false
 })
 
 
@@ -255,6 +293,60 @@ vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" }) -- find existing buffers
 
+
+-- Enable gitsigns
+require('gitsigns').setup {
+  signs = {
+    add          = { text = '+' },
+    change       = { text = '~' },
+    delete       = { text = 'x' },
+    topdelete    = { text = 'TD' }, -- deletion at the top of a file 
+    changedelete = { text = 'CD' }, -- modified line that was deleted later
+    untracked    = { text = '?' },
+  },
+  signs_staged = {
+    add          = { text = 'A' },
+    change       = { text = 'M' },
+    delete       = { text = 'D' },
+    topdelete    = { text = 'TD' }, -- deletion at the top of a file
+    changedelete = { text = 'CD' }, -- modified line that was deleted later
+    untracked    = { text = 'U' },
+  },
+  signs_staged_enable = true,
+  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir = {
+    follow_files = true
+  },
+  auto_attach = true,
+  attach_to_untracked = false,
+  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = false,
+    virt_text_priority = 100,
+    use_focus = true,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+  sign_priority = 6,
+  update_debounce = 100,
+  status_formatter = nil, -- Use default
+  max_file_length = 40000, -- Disable if file is longer than this (in lines)
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'single',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+}
+
+
 -- Default theme
 -- vim.cmd.colorscheme("habamax")
 
@@ -264,3 +356,4 @@ require('tairiki').setup({
   default_dark  = "dimmed",
 })
 vim.cmd("colorscheme tairiki")
+vim.g.airline_theme = 'onedark'
