@@ -2,7 +2,7 @@
 `blame_line` - Show git blame for the current line in a floating window.
 `blame` - Similar to blame_line, but might be used for additional blame features.
 `toggle_current_line_blame` - Toggle inline git blame for the current line (like VSCode).
-
+ 
 # Staging & Resetting
 `stage_hunk` - Stage the current hunk (modified block of code).
 `undo_stage_hunk` - Unstage the last staged hunk.
