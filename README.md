@@ -1,5 +1,6 @@
 # Blame & History
 `blame_line` - Show git blame for the current line in a floating window.
+
 `blame` - Similar to blame_line, but might be used for additional blame features.
 `toggle_current_line_blame` - Toggle inline git blame for the current line (like VSCode).
  
