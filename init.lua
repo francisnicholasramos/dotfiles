@@ -55,8 +55,6 @@ vim.cmd [[
 ]]
 
 
-
-
 -- Plug
 vim.cmd [[
 call plug#begin('~/.vim/plugged')
@@ -105,6 +103,9 @@ Plug 'tpope/vim-fugitive'
 " Gitsigns 
 Plug 'lewis6991/gitsigns.nvim'
 
+" StartupTime
+Plug 'dstein64/vim-startuptime'
+
 call plug#end()
 ]]
 
@@ -119,7 +120,7 @@ require("mason-lspconfig").setup({
 -- treesitter
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "html", "css", "javascript", "tsx", "lua", "json", "python", "php", "java" },
-  highlight = { enable = false },
+  highlight = { enable = true },
   indent = { enable = true, disable = {"html"} },
   autotag = {
         enable = true,
