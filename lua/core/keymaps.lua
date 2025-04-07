@@ -52,4 +52,4 @@ vim.api.nvim_create_autocmd("CursorHold", {
 
 vim.cmd [[
   hi DiagnosticUnderlineError guisp=#E57373 gui=undercurl
-]
+]]
