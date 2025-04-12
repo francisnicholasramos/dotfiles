@@ -27,7 +27,7 @@ require("lazy").setup({
 
 			local hooks = require("ibl.hooks")
 			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-				vim.api.nvim_set_hl(0, "CleanHl", { fg = "#3c4044" })
+				vim.api.nvim_set_hl(0, "CleanHl", { fg = "#303336" })
 			end)
 
 			require("ibl").setup({
@@ -147,7 +147,7 @@ require("lazy").setup({
 	-- Auto complete tag
 	{
 		"windwp/nvim-ts-autotag",
-		config = function()
+    config = function()
 			require("nvim-ts-autotag").setup()
 		end,
 	},
@@ -273,6 +273,7 @@ require("lazy").setup({
 					"css",
 					"scss",
 					"markdown",
+          -- MasonInstall prettier@2.8.8
 				},
 			})
 		end,
@@ -346,6 +347,7 @@ require("lazy").setup({
 		end,
 	},
 
+
 	-- Airline
 	{ "vim-airline/vim-airline" },
 	{
@@ -389,4 +391,10 @@ require("lazy").setup({
 
 	-- File tree icons
 	{ "nvim-tree/nvim-web-devicons" },
+
+  -- Multi-cursor
+  { 
+   "mg979/vim-visual-multi",
+    branch = 'master',
+  },
 })
