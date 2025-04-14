@@ -44,6 +44,21 @@ vim.opt.tabstop = 2 -- Number of spaces for a tab
 -- NvimTreeToggle
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
 
+-- Fzf 
+vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
+vim.keymap.set("n", "<leader><leader>", ":FzfLua buffers<CR>")
+vim.keymap.set("n", "<leader>rf", ":FzfLua oldfiles<CR>")
+
+-- Multi-cursor
+vim.g.VM_default_mappings = 0 -- disable default mappings
+vim.g.VM_maps = {
+  ["Find Under"]         = "<M-n>", -- Alt+m to select word under cursor
+  ["Find Subword Under"] = "<M-n>", -- same for subwords
+  ["Select All"]         = "<M-a>", -- Alt+a to select all occurrences
+  ["Skip Region"]        = "<M-x>", -- Alt+x to skip current
+  ["Remove Region"]      = "<M-q>", -- Alt+q to remove region
+}
+
 -- Hover an errors
 vim.opt.updatetime = 200 -- Reduce delay for CursorHold event
 vim.api.nvim_create_autocmd("CursorHold", {
