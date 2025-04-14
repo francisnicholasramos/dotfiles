@@ -1,20 +1,37 @@
 require("lazy").setup({
+
 	-- Telescope
+	-- {
+	-- 	"nvim-telescope/telescope.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- 	config = function()
+	-- 		local builtin = require("telescope.builtin")
+	-- 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+	-- 		vim.keymap.set(
+	-- 			"n",
+	-- 			"<leader>rf",
+	-- 			require("telescope.builtin").oldfiles,
+	-- 			{ desc = "Telescope recent files" }
+	-- 		)
+	-- 		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+	-- 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+	-- 	end,
+	-- },
+  
+  { "nvim-lua/plenary.nvim" },
+
+  -- Fzf-lua
 	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-			vim.keymap.set(
-				"n",
-				"<leader>rf",
-				require("telescope.builtin").oldfiles,
-				{ desc = "Telescope recent files" }
-			)
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-		end,
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "FzfLua",
+    config = function()
+      require('fzf-lua').setup({
+        fzf_colors = {
+          true,
+        }
+      })
+    end,
 	},
 
 	-- Indent blank line
@@ -147,7 +164,7 @@ require("lazy").setup({
 	-- Auto complete tag
 	{
 		"windwp/nvim-ts-autotag",
-    config = function()
+		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
 	},
@@ -204,7 +221,7 @@ require("lazy").setup({
 					"ts_ls",
 					"jsonls",
 
-          -- MasonInstall prettier@2.8.8 
+					-- MasonInstall prettier@2.8.8
 				},
 			})
 		end,
@@ -273,7 +290,7 @@ require("lazy").setup({
 					"css",
 					"scss",
 					"markdown",
-          -- MasonInstall prettier@2.8.8
+					-- MasonInstall prettier@2.8.8
 				},
 			})
 		end,
@@ -347,7 +364,6 @@ require("lazy").setup({
 		end,
 	},
 
-
 	-- Airline
 	{ "vim-airline/vim-airline" },
 	{
@@ -360,13 +376,13 @@ require("lazy").setup({
 	-- Live server
 	{
 		"barrett-ruth/live-server.nvim",
-		  build = "npm add -g live-server",
-		  cmd = { "LiveServerStart", "LiveServerStop" },
-      config = function()
-        require('live-server').setup()
-    end
+		build = "npm add -g live-server",
+		cmd = { "LiveServerStart", "LiveServerStop" },
+		config = function()
+			require("live-server").setup()
+		end,
 	},
-
+  
 	-- Pets (if you're bored asf)
 	{
 		"tamton-aquib/duck.nvim",
@@ -392,9 +408,9 @@ require("lazy").setup({
 	-- File tree icons
 	{ "nvim-tree/nvim-web-devicons" },
 
-  -- Multi-cursor
-  { 
-   "mg979/vim-visual-multi",
-    branch = 'master',
-  },
+	-- Multi-cursor
+	{
+		"mg979/vim-visual-multi",
+		branch = "master",
+	},
 })
