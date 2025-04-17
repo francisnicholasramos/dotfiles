@@ -1,14 +1,14 @@
 # Global dependencies:
 
-*Git
+* Git
 
-*MinGW-w64: https://www.winlibs.com/
+* MinGW-w64: https://www.winlibs.com/
 
-*NodeJS
+* NodeJS
 
-*Fzf 
+* Fzf 
 
-*Prettier 
+* Prettier 
 
-*Live server (optional)
+* Live server (optional)
 
