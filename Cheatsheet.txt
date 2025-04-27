@@ -41,5 +41,12 @@ noh - remove text that's been highlighted
 shift + ; + s + /textYouWantToChange/newText - for changing multiple lines (you select multiple lines here)
 shift + i + type anything + Esc - will add or replace lines (you select multiple lines here)
 shift + i - adding text for blank lines (you select multiple lines here)
+0 - jump to the absolute beginning of the line 
+$ - move the cursor to the end of a line
+cib - delete everything inside the brackets ()
+ci' - delete everything inside the single quotation 
+ci" - delete everything inside the double quotation 
+ci[ - delete everything inside the square brackets 
+ci{ - delete everything inside the curly brackets
 
 
