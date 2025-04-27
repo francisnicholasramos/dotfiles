@@ -1,7 +1,5 @@
 print("Neovim BTW!")
 
-vim.cmd("cd D:/")
-
 vim.opt.number = true -- set line number
 vim.opt.cursorline = true -- show which line your cursor is on
 vim.opt.splitright = true -- configure how new splits should be opened
@@ -10,12 +8,13 @@ vim.opt.clipboard = "unnamedplus" -- system clipboard
 
 -- Key Maps
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>w", ":w<CR>|:Prettier<CR>") -- save with prettier format
+-- vim.keymap.set("n", "<leader>w", ":w<CR>|:Prettier<CR>") -- save with prettier format
+vim.keymap.set("n", "<leader>w", ":w<CR>") -- save
 vim.keymap.set("n", "<leader>q", ":q<CR>") -- quit
-vim.keymap.set("n", "<leader>t", ":terminal<CR>") -- terminal/shell
+vim.keymap.set("n", "<leader>t", ":Sex<CR> | :terminal<CR>") -- terminal/shell
 vim.keymap.set("n", "<leader>vv", ":vsplit<cr>") -- vertical tab
 vim.keymap.set("n", "<leader>ss", ":Sex<cr>") -- horizontal tab
-vim.keymap.set("n", "cf", ":e C:/Users/niko/AppData/Local/nvim/lua/plugins/plugin_config.lua<cr>") -- init.lua
+vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/plugins/plugin_config.lua<cr>") -- init.lua
 vim.keymap.set("n", ";", ":", { noremap = true }) -- command mode
 vim.keymap.set("n", "[", ":bp<cr>") -- previous tab
 vim.keymap.set("n", "]", ":bn<cr>") -- next tab
