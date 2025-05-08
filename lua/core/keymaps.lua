@@ -32,6 +32,7 @@ vim.keymap.set("n", "<Tab>", "<C-w>") -- switch windows with ease (buffer)
 vim.keymap.set("n", "<leader>a", "ggVG") -- select all command
 vim.keymap.set("v", "<Tab>", ">gv") -- indent forward (right)
 vim.keymap.set("v", "<S-Tab>", "<gv") -- indent backward (left)
+vim.keymap.set("v", "y", "myy`y", { noremap = true, silent = true }) -- keep the cursor after yank
 
 -- Indentation
 vim.opt.autoindent = true -- Enable auto indentation
