@@ -1,23 +1,5 @@
 require("lazy").setup({
-
-	-- Telescope
-	-- {
-	-- 	"nvim-telescope/telescope.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- 	config = function()
-	-- 		local builtin = require("telescope.builtin")
-	-- 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-	-- 		vim.keymap.set(
-	-- 			"n",
-	-- 			"<leader>rf",
-	-- 			require("telescope.builtin").oldfiles,
-	-- 			{ desc = "Telescope recent files" }
-	-- 		)
-	-- 		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-	-- 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-	-- 	end,
-	-- },
-  
+ 
   { "nvim-lua/plenary.nvim" },
 
   -- Fzf-lua
@@ -35,29 +17,29 @@ require("lazy").setup({
 	},
 
 	-- Indent blank line
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			local highlight = {
-				"CleanHl",
-			}
-
-			local hooks = require("ibl.hooks")
-			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-				vim.api.nvim_set_hl(0, "CleanHl", { fg = "#303336" })
-			end)
-
-			require("ibl").setup({
-				indent = {
-					highlight = highlight,
-				},
-
-				scope = {
-					enabled = false,
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	config = function()
+	-- 		local highlight = {
+	-- 			"CleanHl",
+	-- 		}
+	--
+	-- 		local hooks = require("ibl.hooks")
+	-- 		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	-- 			vim.api.nvim_set_hl(0, "CleanHl", { fg = "#303336" })
+	-- 		end)
+	--
+	-- 		require("ibl").setup({
+	-- 			indent = {
+	-- 				highlight = highlight,
+	-- 			},
+	--
+	-- 			scope = {
+	-- 				enabled = false,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- NvimTree
 	{
@@ -221,6 +203,7 @@ require("lazy").setup({
 					"ts_ls",
 					"jsonls",
 
+          -- emmet-ls
 					-- MasonInstall prettier@2.8.8
 				},
 			})
@@ -400,7 +383,7 @@ require("lazy").setup({
 	},
 
 	-- Fugitive (git integration)
-	{ "tpope/vim-fugitive", cmd = "Git" },
+	{ "tpope/vim-fugitive" },
 
 	-- StartupTime
 	{ "dstein64/vim-startuptime" },
