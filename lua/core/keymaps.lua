@@ -1,5 +1,4 @@
-print("Neovim BTW!")
-
+vim.cmd("cd D:/")
 vim.opt.number = true -- set line number
 vim.opt.cursorline = true -- show which line your cursor is on
 vim.opt.splitright = true -- configure how new splits should be opened
@@ -14,7 +13,8 @@ vim.keymap.set("n", "<leader>q", ":q<CR>") -- quit
 vim.keymap.set("n", "<leader>t", ":Sex<CR> | :terminal<CR>") -- terminal/shell
 vim.keymap.set("n", "<leader>vv", ":vsplit<cr>") -- vertical tab
 vim.keymap.set("n", "<leader>ss", ":Sex<cr>") -- horizontal tab
-vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/plugins/plugin_config.lua<cr>") -- init.lua
+vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/plugins/plugin_config.lua<cr>") -- linux
+vim.keymap.set("n", "cf", ":e C:/Users/niko/AppData/Local/nvim/lua/plugins/plugin_config.lua<cr>") -- windows
 vim.keymap.set("n", ";", ":", { noremap = true }) -- command mode
 vim.keymap.set("n", "[", ":bp<cr>") -- previous tab
 vim.keymap.set("n", "]", ":bn<cr>") -- next tab
@@ -48,6 +48,7 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Ex
 vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader><leader>", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>rf", ":FzfLua oldfiles<CR>")
+vim.keymap.set("n", "<leader>gr", ":FzfLua grep_project<CR>")
 
 -- Multi-cursor
 vim.g.VM_default_mappings = 0 -- disable default mappings
