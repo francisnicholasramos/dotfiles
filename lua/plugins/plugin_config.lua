@@ -349,12 +349,7 @@ require("lazy").setup({
 
 	-- Airline
 	{ "vim-airline/vim-airline" },
-	{
-		"vim-airline/vim-airline-themes",
-		config = function()
-			vim.g.airline_theme = "onedark"
-		end,
-	},
+	{ "vim-airline/vim-airline-themes" },
 
 	-- Live server
 	{
