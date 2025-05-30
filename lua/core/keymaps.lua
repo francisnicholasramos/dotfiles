@@ -12,7 +12,7 @@ vim.keymap.set("n", "<leader>w", ":w<CR>") -- save
 vim.keymap.set("n", "<leader>q", ":q<CR>") -- quit
 vim.keymap.set("n", "<leader>t", ":Sex<CR> | :terminal<CR>") -- terminal/shell
 vim.keymap.set("n", "<leader>vv", ":vsplit<cr>") -- vertical tab
-vim.keymap.set("n", "<leader>ss", ":Sex<cr>") -- horizontal tab
+vim.keymap.set("n", "<leader>ss", ":sp<cr>") -- horizontal tab
 vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/plugins/plugin_config.lua<cr>") -- linux
 vim.keymap.set("n", "cf", ":e C:/Users/niko/AppData/Local/nvim/lua/plugins/plugin_config.lua<cr>") -- windows
 vim.keymap.set("n", ";", ":", { noremap = true }) -- command mode
