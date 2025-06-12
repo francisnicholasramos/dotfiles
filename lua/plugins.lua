@@ -16,31 +16,6 @@ require("lazy").setup({
     end,
 	},
 
-	-- Indent blank line
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	config = function()
-	-- 		local highlight = {
-	-- 			"CleanHl",
-	-- 		}
-	--
-	-- 		local hooks = require("ibl.hooks")
-	-- 		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-	-- 			vim.api.nvim_set_hl(0, "CleanHl", { fg = "#303336" })
-	-- 		end)
-	--
-	-- 		require("ibl").setup({
-	-- 			indent = {
-	-- 				highlight = highlight,
-	-- 			},
-	--
-	-- 			scope = {
-	-- 				enabled = false,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
-
 	-- NvimTree
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -84,6 +59,11 @@ require("lazy").setup({
 
 			-- LSP config for html, css, typescript, tailwindcss, eslint
 			lspconfig.html.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
+
+			lspconfig.pyright.setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 			})
@@ -244,20 +224,6 @@ require("lazy").setup({
 		"rafamadriz/friendly-snippets",
 	},
 
-	-- Lua formatting
-	-- {
-	-- 	"jose-elias-alvarez/null-ls.nvim",
-	-- 	config = function()
-	-- 		local null_ls = require("null-ls")
-	--
-	-- 		null_ls.setup({
-	-- 			sources = {
-	-- 				null_ls.builtins.formatting.stylua,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
-
 	-- Prettier
 	{
 		"MunifTanjim/prettier.nvim",
@@ -361,22 +327,6 @@ require("lazy").setup({
 		end,
 	},
   
-	-- Pets (if you're bored asf)
-	{
-		"tamton-aquib/duck.nvim",
-		config = function()
-			vim.keymap.set("n", "<leader>dd", function()
-				require("duck").hatch()
-			end, {})
-			vim.keymap.set("n", "<leader>dk", function()
-				require("duck").cook()
-			end, {})
-			vim.keymap.set("n", "<leader>da", function()
-				require("duck").cook_all()
-			end, {})
-		end,
-	},
-
 	-- Fugitive (git integration)
 	{ "tpope/vim-fugitive" },
 
@@ -391,4 +341,29 @@ require("lazy").setup({
 		"mg979/vim-visual-multi",
 		branch = "master",
 	},
+
+	-- Indent blank line
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	config = function()
+	-- 		local highlight = {
+	-- 			"CleanHl",
+	-- 		}
+	--
+	-- 		local hooks = require("ibl.hooks")
+	-- 		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	-- 			vim.api.nvim_set_hl(0, "CleanHl", { fg = "#303336" })
+	-- 		end)
+	--
+	-- 		require("ibl").setup({
+	-- 			indent = {
+	-- 				highlight = highlight,
+	-- 			},
+	--
+	-- 			scope = {
+	-- 				enabled = false,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 })
