@@ -1,0 +1,71 @@
+" Leader
+let mapleader = " "
+
+syntax on
+syntax enable 
+set encoding=utf-8
+set number 
+set nocompatible
+set showmode
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set hlsearch
+set cursorline
+set termguicolors
+set belloff=all
+set clipboard=unnamed
+set smartindent
+set tabstop=2
+set shiftwidth=2
+set wrap
+set laststatus=2
+set splitbelow
+set splitright
+set nowrap
+set smartcase
+set ignorecase
+set showmatch
+set path+=**
+
+cd D:/
+
+" Key mappings
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>qq :wq!<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Esc> :nohlsearch<CR><Esc>
+nnoremap ; :
+nnoremap cf :edit $MYVIMRC<CR>
+nnoremap <Leader>a ggVG
+nnoremap bd :bd<CR>
+nnoremap <Tab> <C-w>
+nnoremap <Leader>ss :split<CR>
+nnoremap <Leader>vv :vsplit<CR>
+nnoremap <Leader>t :terminal<CR>
+
+nnoremap <Leader>b :b
+nnoremap <Leader>rf :browse oldfiles<CR>
+nnoremap <Leader>e :25Lex<CR>
+
+
+nnoremap <Leader><Leader> :b <Tab>
+" nnoremap <Leader>rf :History<CR>
+nnoremap <Leader>gr :Rg<CR>
+vnoremap y myy`y
+
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+  Plug 'preservim/nerdtree'
+  Plug 'joshdick/onedark.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'tpope/vim-commentary'
+call plug#end()
+
+filetype plugin on
+set history=30
+
+let g:NERDTreeFileLines = 1
+colorscheme habamax
