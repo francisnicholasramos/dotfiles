@@ -15,6 +15,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.updatetime = 200 
 vim.opt.wildmenu = true
 vim.opt.wildmode = { "longest:full", "full" }
+vim.opt.termguicolors = true
 
 vim.keymap.set("n", "<leader>w", ":w<CR>") 
 vim.keymap.set("n", "<leader>q", ":q<CR>") 
@@ -43,11 +44,12 @@ vim.keymap.set("n", "<leader>rf", ":FzfLua oldfiles<CR>")
 vim.keymap.set("n", "<leader>gr", ":FzfLua grep_project<CR>")
 
 vim.cmd([[
-  cd D:/
+  cd /mnt/HDD/
   set path+=**
   "filetype plugin indent on
   syntax enable
   hi DiagnosticUnderlineError guisp=#E57373 gui=undercurl
+  colorscheme tomorrow_night_dark
 ]])
 
 -- Multi-cursor
