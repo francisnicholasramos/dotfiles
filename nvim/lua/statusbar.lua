@@ -23,7 +23,7 @@ vim.cmd "highlight StatusBuffer guibg=#98971a guifg=#1d2021" -- yellow green
 vim.cmd "highlight StatusLocation guibg=#458588 guifg=#1d2021" -- blue green
 vim.cmd "highlight StatusPercent guibg=#1d2021 guifg=#ebdbb2"
 vim.cmd "highlight StatusNorm guibg=#1d2021 guifg=white"
-vim.cmd "highlight StatusGit guibg=#66aeb2 guifg=#1d2021"
+vim.cmd "highlight StatusGit guibg=#458588 guifg=#1d2021" -- old light blue: #66aeb2
 -- vim.cmd "highlight StatusGit guibg=#83a598 guifg=#1d2021"
 
 local mode_map = {
@@ -78,8 +78,8 @@ local function update_statusline()
     .. "%#StatusType#"
     .. " "
     .. " %y "
-    .. "%#StatusBuffer#"
-    .. "  %n  "
+    -- .. "%#StatusBuffer#"
+    -- .. "  %n  "
     .. "%#StatusLocation#"
     .. "  %l,%c  "
     .. "%#StatusPercent#"
