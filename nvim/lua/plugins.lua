@@ -306,17 +306,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Tomorrow Night
-	{
-		"deparr/tairiki.nvim",
-		config = function()
-			require("tairiki").setup({
-				palette = "dimmed",
-			})
-			vim.cmd("colorscheme tairiki")
-		end,
-	},
-
 	-- Live server
 	{
 		"barrett-ruth/live-server.nvim",
