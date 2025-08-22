@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.deprecate = function() end -- mute this noisy mf
 
-require("statusbar")
 require("keymaps")
 require("plugins")
 
