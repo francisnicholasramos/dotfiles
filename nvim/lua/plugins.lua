@@ -1,39 +1,35 @@
 require("lazy").setup({
- 
-  { "nvim-lua/plenary.nvim", lazy = true },
-
+		
   -- Fzf-lua
 	{
 		"ibhagwan/fzf-lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "FzfLua",
     config = function()
       require('fzf-lua').setup({
         fzf_colors = {
           true,
-        }
+        },
       })
     end,
 	},
 
 	-- NvimTree
-	{
-		"nvim-tree/nvim-tree.lua",
-		event = "VimEnter",
-		config = function()
-			require("nvim-tree").setup({
-				sync_root_with_cwd = true,
-				respect_buf_cwd = true,
-				update_focused_file = { enable = true, update_root = true },
-			})
-			vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
-		end,
-	},
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	event = "VimEnter",
+	-- 	config = function()
+	-- 		require("nvim-tree").setup({
+	-- 			sync_root_with_cwd = true,
+	-- 			respect_buf_cwd = true,
+	-- 			update_focused_file = { enable = true, update_root = true },
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- LSP
 	{
 		"neovim/nvim-lspconfig",
-		ft = { "python", "javascript", "lua" }, -- Only load LSP config for specific languages
+		ft = { "python", "javascript", "javascriptreact", "typescriptreact", "java" }, -- Only load LSP config for specific languages
 		config = function()
 			local lspconfig = require("lspconfig")
 
@@ -68,6 +64,16 @@ require("lazy").setup({
 				capabilities = capabilities,
 			})
 
+			lspconfig.jdtls.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
+
+			lspconfig.clangd.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
+
 			lspconfig.cssls.setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -90,7 +96,7 @@ require("lazy").setup({
 
 			-- Emmet
 			lspconfig.emmet_ls.setup({
-				filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte" },
+				filetypes = { "html", "css", "javascriptreact", "typescriptreact"},
 				init_options = {
 					html = {
 						options = {
@@ -182,7 +188,7 @@ require("lazy").setup({
 					"cssls",
 					"ts_ls",
 					"jsonls",
-          -- emmet-ls
+          "emmet-ls",
         
           -- ** Manually install **
 					-- MasonInstall prettier@2.8.8
@@ -255,7 +261,7 @@ require("lazy").setup({
 		config = function()
 			require("gitsigns").setup({
 				signs = {
-					add = { text = "+" },
+					add = { text = "+" }, -- ┃ 
 					change = { text = "~" },
 					delete = { text = "x" },
 					topdelete = { text = "TD" }, -- deletion at the top of a file
@@ -306,6 +312,8 @@ require("lazy").setup({
 		end,
 	},
 
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true},
+
 	-- Live server
 	{
 		"barrett-ruth/live-server.nvim",
@@ -323,7 +331,7 @@ require("lazy").setup({
 	{ "dstein64/vim-startuptime" },
 
 	-- File tree icons
-	{ "nvim-tree/nvim-web-devicons" },
+	-- { "nvim-tree/nvim-web-devicons" },
 
 	-- Multi-cursor
 	{
@@ -355,5 +363,7 @@ require("lazy").setup({
 	-- 		})
 	-- 	end,
 	-- },
-  -- l
+
+
+  -- { "nvim-lua/plenary.nvim", lazy = true },
 })
