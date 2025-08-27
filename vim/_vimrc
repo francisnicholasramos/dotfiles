@@ -1,71 +1,93 @@
-" Leader
 let mapleader = " "
 
-syntax on
-syntax enable 
-set encoding=utf-8
-set number 
-set nocompatible
-set showmode
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set autoindent
+let g:netrw_banner = 0 
+
+set statusline=%<%t\ %h%m%r%=%y\ %l,%c\ 
+
+set number
+set relativenumber
 set hlsearch
-set cursorline
-set termguicolors
-set belloff=all
-set clipboard=unnamed
-set smartindent
-set tabstop=2
-set shiftwidth=2
-set wrap
-set laststatus=2
-set splitbelow
-set splitright
 set nowrap
+set autoindent
+set smartindent
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set cursorline
+set splitright
+set splitbelow
+set wildmode=longest:full,full
+set wildmenu
+set wildoptions=pum
+set termguicolors
+set noswapfile 
+set mouse=a
+set encoding=utf-8
+set incsearch
+set nocompatible
+set belloff=all
+set switchbuf=useopen,usetab 
+set laststatus=2
 set smartcase
 set ignorecase
 set showmatch
+set signcolumn=yes 
 set path+=**
+set background=dark
+" set clipboard=unnamedplus 
 
-cd D:/
+syntax on
+syntax enable 
+filetype plugin indent on
+autocmd FileType netrw setlocal relativenumber number
 
 " Key mappings
 nnoremap <Leader>w :w<CR>
+nnoremap <Leader>ww :source $MYVIMRC<CR>
 nnoremap <Leader>qq :wq!<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Esc> :nohlsearch<CR><Esc>
 nnoremap ; :
 nnoremap cf :edit $MYVIMRC<CR>
 nnoremap <Leader>a ggVG
-nnoremap bd :bd<CR>
+nnoremap <Leader>d :bd<CR>
 nnoremap <Tab> <C-w>
-nnoremap <Leader>ss :split<CR>
-nnoremap <Leader>vv :vsplit<CR>
+nnoremap <Leader>s :split<CR>
+nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>t :terminal<CR>
-
-nnoremap <Leader>b :b
+nnoremap <Leader>ff :find <CR>
+nnoremap <Leader><Leader> :b<Space>
 nnoremap <Leader>rf :browse oldfiles<CR>
-nnoremap <Leader>e :25Lex<CR>
-
-
-nnoremap <Leader><Leader> :b <Tab>
-" nnoremap <Leader>rf :History<CR>
-nnoremap <Leader>gr :Rg<CR>
+nnoremap <Leader>gr :vimgrep<Space>
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap <silent> <Leader>e :call ToggleNetrw()<CR>
 vnoremap y myy`y
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+nnoremap <leader>y "+y
+nnoremap <leader>yy "+yy
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+nnoremap <C-Up> :resize +1<CR>
+nnoremap <C-Down> :resize -1<CR>
+nnoremap <C-Left> :vertical resize -1<CR>
+nnoremap <C-Right> :vertical resize +1<CR>
 
+function! ToggleNetrw()
+  if &filetype ==# 'netrw'
+    b#
+  else 
+    Ex
+  endif
+endfunction
 
-" Plugins
-call plug#begin('~/.vim/plugged')
-  Plug 'preservim/nerdtree'
-  Plug 'joshdick/onedark.vim'
-  Plug 'vim-airline/vim-airline'
-  Plug 'tpope/vim-commentary'
-call plug#end()
+" thick cursor insert mode 
+if &term =~ "xterm"
+  let &t_SI = "\e[6 q"  " Insert mode: bar cursor
+  let &t_EI = "\e[2 q"  " Normal mode: block cursor
+endif
 
-filetype plugin on
-set history=30
-
-let g:NERDTreeFileLines = 1
+colorscheme groove-box
 colorscheme habamax
