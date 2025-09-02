@@ -1,5 +1,5 @@
 require("lazy").setup({
-		
+
   -- Fzf-lua
 	{
 		"ibhagwan/fzf-lua",
@@ -12,19 +12,6 @@ require("lazy").setup({
       })
     end,
 	},
-
-	-- NvimTree
-	-- {
-	-- 	"nvim-tree/nvim-tree.lua",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("nvim-tree").setup({
-	-- 			sync_root_with_cwd = true,
-	-- 			respect_buf_cwd = true,
-	-- 			update_focused_file = { enable = true, update_root = true },
-	-- 		})
-	-- 	end,
-	-- },
 
 	-- LSP
 	{
@@ -40,20 +27,26 @@ require("lazy").setup({
 				update_in_insert = false,
 			})
 
+            vim.api.nvim_create_autocmd("CursorHold", {
+                pattern = "*",
+                callback = function()
+                    vim.diagnostic.open_float(nil, {
+                        focusable = false, -- prevents window from taking focus
+                        prefix = "* ", -- bullet 
+                    })
+                end,
+            })
+
 			-- Function to attach LSP
 			local on_attach = function(client, bufnr)
+                client.server_capabilities.semanticTokensProvider = nil -- respect colorscheme's syntax highlighting
 				local opts = { noremap = true, silent = true, buffer = bufnr }
-				-- Keybindings for LSP
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+				vim.keymap.set("n", "K", vim.diagnostic.open_float, opts)
 			end
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
+			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			-- LSP config for html, css, typescript, tailwindcss, eslint
 			lspconfig.html.setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -115,11 +108,14 @@ require("lazy").setup({
 		config = function()
 			local cmp = require("cmp")
 			cmp.setup({
+        completion = {
+          autocomplete = false, -- disable for a now to become better:)
+        },
 				mapping = {
-					["<Down>"] = cmp.mapping.select_next_item(), -- Move down
-					["<Up>"] = cmp.mapping.select_prev_item(), -- Move up
-					["<C-Space>"] = cmp.mapping.complete(), -- Manually trigger completion
-					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection
+					["<Down>"] = cmp.mapping.select_next_item(), 
+					["<Up>"] = cmp.mapping.select_prev_item(), 
+					["<C-Space>"] = cmp.mapping.complete(), 
+					["<CR>"] = cmp.mapping.confirm({ select = true }), 
 				},
 				sources = {
 					{ name = "nvim_lsp" },
@@ -147,32 +143,18 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate", -- Lazy load on specific command or event
-		event = "BufRead", -- Only load when a buffer is read
-		ft = { "lua", "python", "javascript" }, -- Load Treesitter only for these filetypes
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "html", "css", "javascript", "tsx", "lua", "json", "python", "php", "java" },
-				highlight = { enable = true },
-				indent = { enable = true, disable = { "html" } },
-				autotag = {
-					enable = true,
-					filetypes = {
-						"html",
-						"javascript",
-						"typescript",
-						"javascriptreact",
-						"typescriptreact",
-						"jsx",
-						"tsx",
-					},
-				},
-			})
-		end,
-	},
+	-- Treesitter (for better syntax highligting for tomorrow-night)
+  {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    event = "BufRead",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        highlight = { enable = false },
+        indent = { enable = true, disable = { "html" } },
+      })
+    end,
+  },
 
 	-- Mason
 	{
@@ -191,7 +173,7 @@ require("lazy").setup({
           "emmet-ls",
         
           -- ** Manually install **
-					-- MasonInstall prettier@2.8.8
+          -- MasonInstall prettier@2.8.8
         },
         automatic_enable = false,
       })      
@@ -254,7 +236,7 @@ require("lazy").setup({
 			})
 		end,
 	},
-
+  
 	-- Git Signs
 	{
 		"lewis6991/gitsigns.nvim",
@@ -264,8 +246,8 @@ require("lazy").setup({
 					add = { text = "+" }, -- ┃ 
 					change = { text = "~" },
 					delete = { text = "x" },
-					topdelete = { text = "TD" }, -- deletion at the top of a file
-					changedelete = { text = "CD" }, -- modified line that was deleted later
+					topdelete = { text = "x" }, -- deletion at the top of a file
+					changedelete = { text = "x" }, -- modified line that was deleted later
 					untracked = { text = "?" },
 				},
 				signs_staged = {
@@ -312,8 +294,6 @@ require("lazy").setup({
 		end,
 	},
 
-  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true},
-
 	-- Live server
 	{
 		"barrett-ruth/live-server.nvim",
@@ -330,14 +310,39 @@ require("lazy").setup({
 	-- StartupTime
 	{ "dstein64/vim-startuptime" },
 
-	-- File tree icons
-	-- { "nvim-tree/nvim-web-devicons" },
-
 	-- Multi-cursor
 	{
 		"mg979/vim-visual-multi",
 		branch = "master",
 	},
+
+    -- File tree icons
+    -- { "nvim-tree/nvim-web-devicons" },
+
+	-- NvimTree
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	event = "VimEnter",
+	-- 	config = function()
+	-- 		require("nvim-tree").setup({
+	-- 			sync_root_with_cwd = true,
+	-- 			respect_buf_cwd = true,
+	-- 			update_focused_file = { enable = true, update_root = true },
+	-- 		})
+	-- 	end,
+	-- },
+	-- NvimTree
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	event = "VimEnter",
+	-- 	config = function()
+	-- 		require("nvim-tree").setup({
+	-- 			sync_root_with_cwd = true,
+	-- 			respect_buf_cwd = true,
+	-- 			update_focused_file = { enable = true, update_root = true },
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- Indent blank line
 	-- {
