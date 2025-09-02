@@ -185,7 +185,7 @@ h(0,"MoreMsg",{fg = "#b19db8"})
 h(0,"MsgArea",{bg = "none",fg = "none"})
 h(0,"MsgSeparator",{link = "StatusLine"})
 h(0,"NonText",{fg = "#959896"})
-h(0,"Normal",{bg = "#1d1f21",fg = "#afb2b0"})
+h(0,"Normal",{bg = "#0c0d0e",fg = "#afb2b0"}) -- #1d1f21
 h(0,"NormalFloat",{bg = "#242627",fg = "#afb2b0"})
 h(0,"NormalNC",{bg = "none",fg = "none"})
 h(0,"Number",{fg = "#d99667"})
