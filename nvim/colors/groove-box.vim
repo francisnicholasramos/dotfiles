@@ -131,7 +131,7 @@ if &background ==# 'dark'
   hi Special guifg=#fe8019 guibg=NONE gui=NONE cterm=NONE
   hi String guifg=#b8bb26 guibg=NONE gui=NONE cterm=NONE
   hi Structure guifg=#8ec07c guibg=NONE gui=NONE cterm=NONE
-  hi Todo guifg=fg guibg=#1c1c1c gui=bold cterm=bold
+  hi Todo guifg=#fabd2f guibg=NONE gui=bold cterm=bold
   hi Type guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
   hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
   hi Underlined guifg=#83a598 guibg=NONE gui=underline cterm=underline
