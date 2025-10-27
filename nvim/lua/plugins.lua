@@ -1,17 +1,35 @@
 require("lazy").setup({
 
-  -- Fzf-lua
-	{
-		"ibhagwan/fzf-lua",
-    cmd = "FzfLua",
-    config = function()
-      require('fzf-lua').setup({
-        fzf_colors = {
-          true,
-        },
-      })
-    end,
-	},
+    -- Fzf-lua
+    {
+        "ibhagwan/fzf-lua",
+        cmd = "FzfLua",
+        config = function()
+            require('fzf-lua').setup({
+                fzf_colors = {
+                    true,
+                },
+            })
+        end,
+    },
+
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim"},
+        config = function()
+            local harpoon = require("harpoon")
+            harpoon:setup()
+
+            vim.keymap.set("n", "<leader>ad", function() harpoon:list():add() end)
+            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+            vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
+            vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
+            vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
+            vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+        end,
+    },
 
 	-- LSP
 	{
@@ -37,15 +55,10 @@ require("lazy").setup({
                 end,
             })
 
-			-- Function to attach LSP
 			local on_attach = function(client, bufnr)
                 client.server_capabilities.semanticTokensProvider = nil -- respect colorscheme's syntax highlighting
 				local opts = { noremap = true, silent = true, buffer = bufnr }
-				vim.keymap.set("n", "K", vim.diagnostic.open_float, opts)
 			end
-
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-			-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			lspconfig.html.setup({
 				on_attach = on_attach,
@@ -114,7 +127,8 @@ require("lazy").setup({
 				mapping = {
 					["<Down>"] = cmp.mapping.select_next_item(), 
 					["<Up>"] = cmp.mapping.select_prev_item(), 
-					["<C-Space>"] = cmp.mapping.complete(), 
+					["<C-j>"] = cmp.mapping.select_next_item(), 
+					["<C-k>"] = cmp.mapping.select_prev_item(), 
 					["<CR>"] = cmp.mapping.confirm({ select = true }), 
 				},
 				sources = {
@@ -134,27 +148,27 @@ require("lazy").setup({
 	},
 
 	-- Auto complete pairs
-	{
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup({
-				check_ts = true,
-			})
-		end,
-	},
+    {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup({
+                check_ts = true,
+            })
+        end,
+    },
 
 	-- Treesitter (for better syntax highligting for tomorrow-night)
-  {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    event = "BufRead",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        highlight = { enable = false },
-        indent = { enable = true, disable = { "html" } },
-      })
-    end,
-  },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+        event = "BufRead",
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                highlight = { enable = false },
+                indent = { enable = true, disable = { "html" } },
+            })
+        end,
+    },
 
 	-- Mason
 	{
@@ -163,18 +177,16 @@ require("lazy").setup({
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-        ensured_install = {
-          "lua_ls",
-					"pyright",
-					"html",
-					"cssls",
-					"ts_ls",
-					"jsonls",
-          "emmet-ls",
-        
-          -- ** Manually install **
-          -- MasonInstall prettier@2.8.8
-        },
+                ensured_install = {
+                    "html",
+                    "cssls",
+                    "ts_ls",
+                    "jsonls",
+                    "emmet-ls",
+
+                    -- ** Manually install **
+                    -- MasonInstall prettier@2.8.8
+                },
         automatic_enable = false,
       })      
 
@@ -208,9 +220,7 @@ require("lazy").setup({
 			end, { silent = true })
 		end,
 	},
-	{
-		"rafamadriz/friendly-snippets",
-	},
+	{ "rafamadriz/friendly-snippets"},
 
 	-- Prettier
 	{
@@ -307,68 +317,13 @@ require("lazy").setup({
 	-- Fugitive (git integration)
 	{ "tpope/vim-fugitive" },
 
-	-- StartupTime
-	{ "dstein64/vim-startuptime" },
-
 	-- Multi-cursor
 	{
 		"mg979/vim-visual-multi",
 		branch = "master",
+        init = function() 
+            vim.g.VM_default_mappings = 0
+        end,
 	},
 
-    -- File tree icons
-    -- { "nvim-tree/nvim-web-devicons" },
-
-	-- NvimTree
-	-- {
-	-- 	"nvim-tree/nvim-tree.lua",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("nvim-tree").setup({
-	-- 			sync_root_with_cwd = true,
-	-- 			respect_buf_cwd = true,
-	-- 			update_focused_file = { enable = true, update_root = true },
-	-- 		})
-	-- 	end,
-	-- },
-	-- NvimTree
-	-- {
-	-- 	"nvim-tree/nvim-tree.lua",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("nvim-tree").setup({
-	-- 			sync_root_with_cwd = true,
-	-- 			respect_buf_cwd = true,
-	-- 			update_focused_file = { enable = true, update_root = true },
-	-- 		})
-	-- 	end,
-	-- },
-
-	-- Indent blank line
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	config = function()
-	-- 		local highlight = {
-	-- 			"CleanHl",
-	-- 		}
-	--
-	-- 		local hooks = require("ibl.hooks")
-	-- 		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-	-- 			vim.api.nvim_set_hl(0, "CleanHl", { fg = "#303336" })
-	-- 		end)
-	--
-	-- 		require("ibl").setup({
-	-- 			indent = {
-	-- 				highlight = highlight,
-	-- 			},
-	--
-	-- 			scope = {
-	-- 				enabled = false,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
-
-
-  -- { "nvim-lua/plenary.nvim", lazy = true },
 })
