@@ -463,14 +463,14 @@ call s:X("CursorLineNr","ccc5c4","","NONE","White","")
 call s:X("Comment","888888","","italic","Grey","")
 call s:X("Todo","c7c7c7","","bold","White",s:termBlack)
 
-call s:X("StatusLine","000000","dddddd","italic","","White")
+call s:X("StatusLine","dddddd","333333","","","White")
 call s:X("StatusLineNC","ffffff","403c41","italic","White","Black")
 call s:X("VertSplit","777777","403c41","",s:termBlack,s:termBlack)
 call s:X("WildMenu","f0a0c0","302028","","Magenta","")
 
 call s:X("Folded","a0a8b0","384048","italic",s:termBlack,"")
 call s:X("FoldColumn","535D66","1f1f1f","","",s:termBlack)
-call s:X("SignColumn","777777","333333","","",s:termBlack)
+call s:X("SignColumn","777777","151515","","",s:termBlack)
 call s:X("ColorColumn","","000000","","",s:termBlack)
 
 call s:X("Title","70b950","","bold","Green","")
@@ -504,6 +504,9 @@ hi! link Error ErrorMsg
 hi! link MoreMsg Special
 call s:X("Question","65C254","","","Green","")
 
+" Diagnostic Errors
+call s:X("DiagnosticError","fb6150","","","","DarkRed")
+call s:X("DiagnosticUnderlineError", "", "", "undercurl", "", "c90306")
 
 " Spell Checking
 
@@ -519,10 +522,10 @@ hi! link diffAdded String
 
 " VimDiff
 
-call s:X("DiffAdd","D2EBBE","437019","","White","DarkGreen")
-call s:X("DiffDelete","40000A","700009","","DarkRed","DarkRed")
-call s:X("DiffChange","","2B5B77","","White","DarkBlue")
-call s:X("DiffText","8fbfdc","000000","reverse","Yellow","")
+call s:X("DiffAdd","","16261f","","White","DarkGreen")
+call s:X("DiffDelete","fa5252","25191d","","DarkRed","DarkRed")
+call s:X("DiffChange","bfbfbf","2e2e2e","bold","White","DarkBlue")
+call s:X("DiffText","999999","283757","","","")
 
 " PHP
 
