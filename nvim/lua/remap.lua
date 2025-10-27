@@ -25,6 +25,15 @@ vim.keymap.set("n", "<C-Up>", ":resize +1<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize -1<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize +1<CR>")
+vim.keymap.set("n", "<C-k>", ":resize +1<CR>")
+vim.keymap.set("n", "<C-j>", ":resize -1<CR>")
+vim.keymap.set("n", "<C-h>", ":vertical resize -1<CR>")
+vim.keymap.set("n", "<C-l>", ":vertical resize +1<CR>")
+vim.keymap.set("i", "<M-BS>", "<C-w>") -- M = Alt
+
+-- LSP
+vim.keymap.set("n", "K", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
 
 -- THE BEST REMAP IMHO
 vim.keymap.set("n", "<leader>e", function()
@@ -43,11 +52,9 @@ vim.cmd([[
   autocmd FileType netrw setlocal relativenumber number
 
   "colorscheme tomorrow_night_dark
-  "colorscheme jellybeans
+  colorscheme jellybeans
   "colorscheme kanagawa
   "colorscheme hybrid
-  colorscheme groove-box
-  "colorscheme gruvbox
+  "colorscheme groove-box
+  "colorscheme nord
 ]])
-
-require("statusbar1")
