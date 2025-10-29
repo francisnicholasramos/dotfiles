@@ -2,8 +2,6 @@ let mapleader = " "
 
 let g:netrw_banner = 0 
 
-set statusline=%<%t\ %h%m%r%=%y\ %l,%c\ 
-
 set number
 set relativenumber
 set hlsearch
@@ -74,6 +72,7 @@ nnoremap <C-Up> :resize +1<CR>
 nnoremap <C-Down> :resize -1<CR>
 nnoremap <C-Left> :vertical resize -1<CR>
 nnoremap <C-Right> :vertical resize +1<CR>
+tnoremap <Esc> <C-\><C-n>
 
 function! ToggleNetrw()
   if &filetype ==# 'netrw'
@@ -91,3 +90,4 @@ endif
 
 colorscheme groove-box
 colorscheme habamax
+
