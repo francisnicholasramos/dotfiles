@@ -1,4 +1,4 @@
 require("set")
 require("remap")
 require("lazy_init")
-require("plugins")
+-- require("plugins") -- this is optional for using plugins.lua 
