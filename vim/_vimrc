@@ -44,7 +44,7 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>ww :source $MYVIMRC<CR>
 nnoremap <Leader>qq :wq!<CR>
 nnoremap <Leader>q :q<CR>
-nnoremap <Esc> :nohlsearch<CR><Esc>
+nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 nnoremap ; :
 nnoremap cf :edit $MYVIMRC<CR>
 nnoremap <Leader>a ggVG
@@ -90,4 +90,5 @@ endif
 
 colorscheme groove-box
 colorscheme habamax
+
 
