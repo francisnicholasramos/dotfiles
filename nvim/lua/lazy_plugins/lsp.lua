@@ -10,8 +10,6 @@ return {
         },
         event = { "BufReadPre", "BufNewFile" }, -- lazy load 
         config = function()
-            local lspconfig = require("lspconfig")
-
             vim.diagnostic.config({
                 signs = true,
                 virtual_text = false,
@@ -20,7 +18,6 @@ return {
             })
 
             vim.api.nvim_create_autocmd("CursorHold", {
-                pattern = "*",
                 callback = function()
                     vim.diagnostic.open_float(nil, {
                         focusable = false, -- prevents window from taking focus
@@ -34,57 +31,25 @@ return {
                 local opts = { noremap = true, silent = true, buffer = bufnr }
             end
 
-            lspconfig.html.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            local servers = {
+                "html",
+                "cssls",
+                "ts_ls",
+                "tailwindcss",
+                "eslint",
+                "prismals",
+            }
 
-            lspconfig.pyright.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            for _, server in ipairs(servers) do
+                vim.lsp.config[server] = {
+                    on_attach = on_attach,
+                    capabilities = capabilities,
+                }
+            end
 
-            lspconfig.jdtls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-
-            lspconfig.clangd.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-
-            lspconfig.cssls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-
-            lspconfig.ts_ls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-
-            lspconfig.tailwindcss.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-
-            lspconfig.eslint.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-
-            -- Emmet
-            lspconfig.emmet_ls.setup({
-                filetypes = { "html", "css", "javascriptreact", "typescriptreact"},
-                init_options = {
-                    html = {
-                        options = {
-                            ["bem.enabled"] = true, -- Enable BEM support
-                        },
-                    },
-                },
-            })
+            for _, server in ipairs(servers) do
+                vim.lsp.enable(server)
+            end
         end,
     },
 }
