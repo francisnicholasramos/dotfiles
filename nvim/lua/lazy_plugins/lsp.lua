@@ -31,14 +31,7 @@ return {
                 local opts = { noremap = true, silent = true, buffer = bufnr }
             end
 
-            local servers = {
-                "html",
-                "cssls",
-                "ts_ls",
-                "tailwindcss",
-                "eslint",
-                "prismals",
-            }
+            local servers = require("mason-lspconfig").get_installed_servers()
 
             for _, server in ipairs(servers) do
                 vim.lsp.config[server] = {
