@@ -1,5 +1,7 @@
 vim.keymap.set("n", "html", ":-1read $HOME/.config/nvim/lua/snippets/skeleton.html<CR>")
 
+vim.keymap.set("n", "css", ":-1read $HOME/.config/nvim/lua/snippets/css-reset.css<CR>")
+
 vim.keymap.set("n", "rafce", function()
   local filename = vim.fn.expand("%:t:r")
 
