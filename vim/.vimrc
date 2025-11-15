@@ -32,7 +32,6 @@ set showmatch
 set signcolumn=yes 
 set path+=**
 set background=dark
-" set clipboard=unnamedplus 
 
 syntax on
 syntax enable 
@@ -86,14 +85,9 @@ function! ToggleNetrw()
   endif
 endfunction
 
-" thick cursor insert mode 
-if &term =~ "xterm"
-  let &t_SI = "\e[6 q"  " Insert mode: bar cursor
-  let &t_EI = "\e[2 q"  " Normal mode: block cursor
-endif
-
 colorscheme groove-box
 colorscheme habamax
+
 
 
 
