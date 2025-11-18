@@ -1,15 +1,12 @@
 vim.keymap.set("n", ";", ":") 
-vim.keymap.set("n", "<leader>w", ":w<CR>") 
-vim.keymap.set("n", "<leader>q", ":q<CR>") 
 vim.keymap.set("n", "<leader>t", ":sp | :terminal<CR>") 
 vim.keymap.set("n", "<leader>v", ":vsp<cr>") 
 vim.keymap.set("n", "<leader>s", ":sp<cr>") 
 vim.keymap.set("n", "<leader>d", ":bd<cr>") 
-vim.keymap.set("n", "<leader>a", "ggVG") 
-vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/plugins.lua<CR>") 
+vim.keymap.set("n", "<leader>y", ':%y+<CR>') 
+vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/<CR>") 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") 
-vim.keymap.set("n", "<Tab>", "<C-w>") 
-vim.keymap.set("v", "y", "myy`y") -- keep the cursor after yank
+vim.keymap.set("n", "<Tab>", "<C-w>") vim.keymap.set("v", "y", "myy`y") -- keep the cursor after yank
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>") 
 
 vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
@@ -40,7 +37,7 @@ vim.keymap.set({"n", "v"}, "y", '"+y')
 vim.keymap.set({"n", "v"}, "d", '"+d')
 vim.keymap.set({"n", "v"}, "p", '"+p')
 
-vim.keymap.set("i", "<M-BS>", "<C-w>") -- M = Alt
+vim.keymap.set("i", "<M-BS>", "<C-w>") 
 
 -- THE BEST REMAP IMHO
 vim.keymap.set("n", "<leader>e", function()
@@ -58,10 +55,10 @@ vim.cmd([[
   syntax enable
   autocmd FileType netrw setlocal relativenumber number
 
-  "colorscheme tomorrow_night_dark
-  colorscheme jellybeans
-  "colorscheme kanagawa
-  "colorscheme hybrid
-  "colorscheme groove-box
-  "colorscheme nord
+  "color tomorrow_night_dark
+  color jellybeans
+  "color kanagawa
+  "color hybrid
+  "color groove-box
+  "color nord
 ]])
