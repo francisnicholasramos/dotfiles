@@ -84,7 +84,6 @@ function! ToggleNetrw()
   endif
 endfunction
 
-colorscheme torte
 
 
 
