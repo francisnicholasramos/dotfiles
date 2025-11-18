@@ -36,6 +36,10 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "K", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
 
+vim.keymap.set({"n", "v"}, "y", '"+y')
+vim.keymap.set({"n", "v"}, "d", '"+d')
+vim.keymap.set({"n", "v"}, "p", '"+p')
+
 vim.keymap.set("i", "<M-BS>", "<C-w>") -- M = Alt
 
 -- THE BEST REMAP IMHO
