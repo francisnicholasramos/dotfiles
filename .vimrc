@@ -84,8 +84,8 @@ function! ToggleNetrw()
   endif
 endfunction
 
-colorscheme groove-box
-colorscheme habamax
+colorscheme torte
+
 
 
 
