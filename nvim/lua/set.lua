@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 
 vim.g.netrw_banner = 0;
 
+vim.opt.guicursor = ""
+
 vim.opt.number = true 
 vim.opt.relativenumber = true
 
@@ -28,6 +30,5 @@ vim.opt.wildmode = { "longest:full", "full" }
 
 vim.opt.termguicolors = true
 vim.opt.wrap = false
-vim.opt.clipboard = "unnamedplus" 
 vim.opt.updatetime = 200 
 vim.opt.signcolumn = "yes"
