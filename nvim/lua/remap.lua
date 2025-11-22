@@ -37,8 +37,8 @@ vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
 
 vim.keymap.set({"n", "v"}, "y", '"+y')
 vim.keymap.set({"n", "v"}, "p", '"+p')
-vim.keymap.set({"n", "v"}, "d", '"+d')
 vim.keymap.set({"n", "v"}, "D", '"+dd')
+vim.keymap.set({"n", "v"}, "dd", '"+dd')
 
 vim.keymap.set("n", "<M-k>", ":cnext<CR>")
 vim.keymap.set("n", "<M-j>", ":cprev<CR>")
