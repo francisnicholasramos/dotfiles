@@ -1,6 +1,9 @@
 return {
     {
         "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+        },
         event = "InsertEnter",
         config = function()
             local cmp = require("cmp")
@@ -22,10 +25,11 @@ return {
         end,
     },
 
-	{
-		"windwp/nvim-ts-autotag",
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
-	},
+    {
+      "windwp/nvim-ts-autotag",
+      event = "InsertEnter",
+      config = function()
+        require("nvim-ts-autotag").setup()
+      end,
+    },
 }
