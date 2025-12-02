@@ -1,6 +1,11 @@
 return {
     {
         "mg979/vim-visual-multi",
-        branch = "master"
+        branch = "master",
+        keys = {
+          {
+            "<C-n>", {"n"}
+          }
+        },
     },
 }
