@@ -4,7 +4,7 @@ return {
         branch = "master",
         keys = {
           {
-            "<C-n>", {"n"}
+            "<C-n>"
           }
         },
     },
