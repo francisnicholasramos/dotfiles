@@ -67,7 +67,7 @@ nnoremap <C-Left> :vertical resize -1<CR>
 nnoremap <C-Right> :vertical resize +1<CR>
 
 tnoremap <Esc> <C-\><C-n> 
-inoremap <C-H> <C-w>
+inoremap <Esc><BS> <C-w>
 
 nnoremap <Tab>j :cnext<CR>
 nnoremap <Tab>k :cprev<CR>
@@ -94,3 +94,4 @@ function! ToggleNetrw()"
 endfunction
 
 autocmd BufRead,BufNewFile *.ejs set filetype=html  
+
