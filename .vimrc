@@ -15,7 +15,7 @@ set splitright
 set splitbelow
 set wildmode=longest:full,full
 set wildmenu
-set wildoptions=pum
+" set wildoptions=pum
 set noswapfile 
 set mouse=a
 set encoding=utf-8
@@ -94,4 +94,5 @@ function! ToggleNetrw()"
 endfunction
 
 autocmd BufRead,BufNewFile *.ejs set filetype=html  
+
 
