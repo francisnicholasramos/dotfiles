@@ -34,10 +34,7 @@ filetype plugin indent on
 autocmd FileType netrw setlocal relativenumber number
 
 " Key mappings
-nnoremap <Leader>ww :source $MYVIMRC<CR>
 nnoremap <leader>c :!gcc % -o %< <CR>
-nnoremap <Leader>qq :wq!<CR>
-nnoremap <Leader>q :q<CR>
 nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 nnoremap ; :
 nnoremap <Leader><Tab> <C-6>
@@ -94,5 +91,6 @@ function! ToggleNetrw()"
 endfunction
 
 autocmd BufRead,BufNewFile *.ejs set filetype=html  
+
 
 
