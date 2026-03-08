@@ -19,7 +19,7 @@ set splitright
 set splitbelow
 set wildmode=longest:full,full
 set wildmenu
-set wildoptions=pum
+" set wildoptions=pum
 set noswapfile 
 set mouse=a
 set incsearch
@@ -108,3 +108,4 @@ hi Pmenu        ctermbg=236 ctermfg=248
 hi PmenuSel     ctermbg=109 ctermfg=237 cterm=bold
 hi PmenuSbar    ctermbg=237
 hi PmenuThumb   ctermbg=244
+
