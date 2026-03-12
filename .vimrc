@@ -2,13 +2,9 @@ let mapleader = " "
 
 let g:netrw_banner = 0
 
-" set nu
-" set rnu
-set hls " FZF VIM
-nnoremap <Leader>ff :Files<CR>
-nnoremap <Leader><Leader> :Buffers<CR>
-nnoremap <Leader>rf :History<CR>
-nnoremap <Leader>rg :RG<CR>
+set nu
+set rnu
+set hls 
 set nowrap
 set autoindent
 set smartindent
@@ -19,7 +15,7 @@ set splitright
 set splitbelow
 set wildmode=longest:full,full
 set wildmenu
-" set wildoptions=pum
+"set wildoptions=pum
 set noswapfile 
 set mouse=a
 set incsearch
@@ -76,10 +72,10 @@ nnoremap <C-j> :resize -1<CR>
 nnoremap <C-h> :vertical resize -1<CR>
 nnoremap <C-l> :vertical resize +1<CR>
 
-" vnoremap <Leader>y "+y
-" nnoremap <Leader>yy "+yy
-" nnoremap <Leader>p "+p
-" vnoremap <Leader>p "+p
+vnoremap <Leader>y "+y
+nnoremap <Leader>yy "+yy
+nnoremap <Leader>p "+p
+vnoremap <Leader>p "+p
 
 function! ToggleNetrw()
   if &filetype ==# 'netrw'
@@ -108,4 +104,3 @@ hi Pmenu        ctermbg=236 ctermfg=248
 hi PmenuSel     ctermbg=109 ctermfg=237 cterm=bold
 hi PmenuSbar    ctermbg=237
 hi PmenuThumb   ctermbg=244
-
