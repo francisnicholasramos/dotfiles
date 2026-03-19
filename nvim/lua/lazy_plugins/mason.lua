@@ -1,6 +1,6 @@
 return {
     "williamboman/mason.nvim",
-    dependencies = { 
+    dependencies = {
         {
             "williamboman/mason-lspconfig.nvim",
             config = function()
@@ -11,17 +11,24 @@ return {
                         "ts_ls",
                         "eslint",
                         "tailwindcss",
+                        "phpactor",
+                        "intelephense",
 
-                        -- "clangd",
-                        -- "cssls",
-                        -- "emmet_ls",
-                        -- "eslint",
                         -- "html",
+                        -- "cssls",
+                        -- "ts_ls",
+                        -- "eslint",
+                        -- "tailwindcss",
+                        -- "phpactor",
+                        -- "intelephense",
+                        -- "blade-formatter",
+                        -- "pyright",
+                        -- "laravel_ls",
+                        -- "lua_ls"
+                        -- "clangd",
                         -- "jdtls",
                         -- "jsonls",
-                        -- "pyright",
-                        -- "tailwindcss",
-                        -- "ts_ls",
+                        -- "emmet_ls",
 
 
 
@@ -29,8 +36,8 @@ return {
                         -- MasonInstall prettier@2.8.8
                     },
                     automatic_enable = false,
-                })      
-            end,			
+                })
+            end,
         }
     },
     cmd = {"Mason"},
