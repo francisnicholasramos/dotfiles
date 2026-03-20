@@ -91,7 +91,7 @@ autocmd BufRead,BufNewFile *.css,*.json, setlocal tabstop=2 shiftwidth=2 softtab
 
 hi LineNr ctermfg=239
 hi String ctermfg=3
-hi Visual ctermbg=235
+hi Visual ctermbg=235 ctermfg=none
 hi MatchParen ctermfg=97 ctermbg=238 cterm=bold
 hi Comment cterm=italic gui=italic
 hi Todo ctermfg=97 ctermbg=NONE cterm=bold
