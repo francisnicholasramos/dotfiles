@@ -8,6 +8,7 @@ vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/<CR>")
 vim.keymap.set("n", "<leader>co", ":copen<CR>") 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") 
 vim.keymap.set("n", "<Tab>", "<C-w>") 
+vim.keymap.set("n", "<leader><Tab>", "<C-6>")
 vim.keymap.set("v", "y", 'myy`y')
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>") 
 
