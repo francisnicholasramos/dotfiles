@@ -2,6 +2,10 @@ profile() {
   vi ~/.bashrc
 }
 
+gc() {
+  git clone
+}
+
 so() {
   source ~/.bashrc
 }
