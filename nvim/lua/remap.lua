@@ -3,9 +3,7 @@ vim.keymap.set("n", "<leader>t", ":sp | :terminal<CR>")
 vim.keymap.set("n", "<leader>v", ":vsp<cr>") 
 vim.keymap.set("n", "<leader>s", ":sp<cr>") 
 vim.keymap.set("n", "<leader>d", ":bd<cr>") 
-vim.keymap.set("n", "<leader>y", ':%y+<CR>') 
 vim.keymap.set("n", "cf", ":e ~/.config/nvim/lua/<CR>") 
-vim.keymap.set("n", "<leader>co", ":copen<CR>") 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") 
 vim.keymap.set("n", "<Tab>", "<C-w>") 
 vim.keymap.set("n", "<leader><Tab>", "<C-6>")
@@ -15,7 +13,7 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader><leader>", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>rf", ":FzfLua oldfiles<CR>")
-vim.keymap.set("n", "<leader>gr", ":FzfLua grep_project<CR>")
+vim.keymap.set("n", "<leader>rg", ":FzfLua grep_project<CR>")
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -36,10 +34,9 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "K", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
 
-vim.keymap.set({"n", "v"}, "y", '"+y')
-vim.keymap.set({"n", "v"}, "p", '"+p')
-vim.keymap.set({"n", "v"}, "D", '"+dd')
-vim.keymap.set({"n", "v"}, "dd", '"+dd')
+vim.keymap.set({"n", "v"}, "<leader>p", '"+p')
+vim.keymap.set("n", "<leader>yy", '"+yy')
+vim.keymap.set("v", "<leader>y", '"+y')
 
 vim.keymap.set("n", "<M-k>", ":cnext<CR>")
 vim.keymap.set("n", "<M-j>", ":cprev<CR>")
@@ -56,10 +53,6 @@ end)
 
 vim.cmd([[
   set path+=**
-  filetype plugin indent on
-  syntax on
-  syntax enable
-  autocmd FileType netrw setlocal relativenumber number
 
   "color tomorrow_night_dark
   "color jellybeans
