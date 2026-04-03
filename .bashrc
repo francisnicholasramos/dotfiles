@@ -1,5 +1,7 @@
 alias gc="git clone"
 
+alias vi="nvim"
+
 pro() {
   vi ~/.bashrc
 }
