@@ -49,7 +49,7 @@ vim.keymap.set("n", "<leader>e", function()
   else 
     vim.cmd("Ex")
   end 
-end)
+end)Add new keybindings for screenshot and set wallpaper with feh.
 
 vim.cmd([[
   set path+=**
@@ -61,4 +61,7 @@ vim.cmd([[
   color groove-box
   "color nord
   "color torte
+
+  highlight Normal guibg=none
+  highlight NonText guibg=none
 ]])
