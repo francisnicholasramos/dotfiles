@@ -197,3 +197,9 @@ bar {
 # new bindings
 bindsym Print exec gnome-screenshot -c
 bindsym Shift+Print exec gnome-screenshot -a -c
+
+# wallpaper
+exec_always feh --bg-scale ~/arch.jpg
+
+# picom 
+exec --no-startup-id picom --config ~/.config/picom.conf
