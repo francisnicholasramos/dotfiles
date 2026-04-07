@@ -1,0 +1,28 @@
+xterm*background: #1e1e1e 
+xterm*foreground: #d4d4d4 
+xterm*selectToClipboard: true
+
+xterm*color0:  #1e1e1e
+xterm*color1:  #f44747
+xterm*color2:  #6a9955
+xterm*color3:  #d7ba7d
+xterm*color4:  #569cd6
+xterm*color5:  #c678dd
+xterm*color6:  #56b6c2
+xterm*color7:  #d4d4d4
+xterm*color8:  #808080
+xterm*color9:  #f44747
+xterm*color10: #6a9955
+xterm*color11: #d7ba7d
+xterm*color12: #569cd6
+xterm*color13: #c678dd
+xterm*color14: #56b6c2
+xterm*color15: #ffffff
+
+xterm*faceName: monospace
+xterm*faceSize: 15
+xterm*boldFont: monospace:bold
+
+xterm*translations: #override \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
