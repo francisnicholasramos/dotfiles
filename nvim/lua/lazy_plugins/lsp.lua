@@ -27,10 +27,15 @@ return {
             local servers = require("mason-lspconfig").get_installed_servers()
 
             for _, server in ipairs(servers) do
-                vim.lsp.config[server] = {
+                local config = {
                     on_attach = on_attach,
                     capabilities = capabilities,
                 }
+
+                if server == "phpactor" then
+                    config.filetypes = { "php", "blade" }
+                end
+                vim.lsp.config[server] = config
                 vim.lsp.enable(server)
             end
         end,
